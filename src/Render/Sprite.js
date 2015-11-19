@@ -13,11 +13,8 @@ JSE.Render.Sprite = function() {
 	this.frameRect = new JSE.Render.Rect();
 	this.div = Math.floor(Math.random() * (1000000 - 1)) + 1;
 	var container = document.createElement("div");
-	container.style.display = "inline-block";
 	container.setAttribute("id", "sprite-" + this.div);
 	document.body.appendChild(container);
-	
-	document.write("Sprite created.<br />");
 };
 
 JSE.Render.Sprite.prototype = {
@@ -38,12 +35,6 @@ JSE.Render.Sprite.prototype = {
 		this.frameRect.w = frameW;
 		this.frameRect.h = frameH;
 		this.numFramesX = w / frameW;
-
-
-	},
-	
-	createTexture: function() {
-		
 	},
 	
 	setPos: function(x, y) {
@@ -65,6 +56,9 @@ JSE.Render.Sprite.prototype = {
 		
 		this.getImage().style.top = -this.frameRect.y + "px";
 		this.getImage().style.left = -this.frameRect.x + "px";
+
+		this.getContainer().style.top = this.rect.y + "px";
+		this.getContainer().style.left = this.rect.x + "px";
 	},
 	
 	getFrames: function() {
@@ -80,8 +74,9 @@ JSE.Render.Sprite.prototype = {
 		if(!container.firstChild) {
 			container.style.width = this.w + "px";
 			container.style.height = this.h + "px";
+			container.style.display = "inline-block";
 			container.style.overflow = "hidden";
-			container.style.position = "relative";
+			container.style.position = "absolute";
 
 			var img = document.createElement("img");
 			img.setAttribute("src", this.image.src);

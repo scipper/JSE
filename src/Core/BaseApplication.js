@@ -7,6 +7,7 @@ JSE.Core.BaseApplication = function() {
 };
 
 JSE.Core.BaseApplication.prototype = Object.create(JSE.Core.Application.prototype);
+JSE.Core.BaseApplication.prototype.constructor = JSE.Core.BaseApplication;
 
 JSE.Core.BaseApplication.prototype.coreInit = function() {
 	JSE.Core.Application.prototype.coreInit.call(this);

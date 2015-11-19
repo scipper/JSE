@@ -7,6 +7,7 @@ JSE.Dev.MyApp = function() {
 };
 
 JSE.Dev.MyApp.prototype = Object.create(JSE.Core.BaseApplication.prototype);
+JSE.Dev.MyApp.prototype.constructor = JSE.Dev.MyApp;
 
 JSE.Dev.MyApp.prototype.init = function() {
 	console.log("MyApp initialised.");
