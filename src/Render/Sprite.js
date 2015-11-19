@@ -4,7 +4,6 @@ JSE.createNS("JSE.Render");
 
 JSE.Render.Sprite = function() {
 	this.frames = 0;
-	this.curFrame = 0;
 	this.h = 0;
 	this.w = 0;
 	this.numFramesX = 0;
@@ -42,14 +41,9 @@ JSE.Render.Sprite.prototype = {
 		this.rect.y = y;
 	},
 	
-	render: function() {
-		this.curFrame++;
-		if(this.curFrame >= this.frames) {
-			this.curFrame = 1;
-		}
-		
-		var column = Math.floor(this.curFrame % this.numFramesX);
-		var row = Math.floor(this.curFrame / this.numFramesX);
+	render: function(frame) {
+		var column = Math.floor(frame % this.numFramesX);
+		var row = Math.floor(frame / this.numFramesX);
 
 		this.frameRect.x = column * this.w;
 		this.frameRect.y = row * this.h;
