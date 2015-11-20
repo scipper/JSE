@@ -21,15 +21,28 @@ JSE.Core.Application.prototype.run = function() {
 	
 	this.running = true;
 	
-	var appId = setInterval(function() {
+	function mainLoop() {
+		if(!that.running) {
+			return;
+		}	
+		requestAnimationFrame(mainLoop);
+		
 		that.timer.update();
 		
 		that.coreUpdate(that.timer.getElapsed());
-		
-		if(!that.running) {
-			clearInterval(appId);
-		}
-	}, 50);
+	}
+	mainLoop();
+	
+	
+//	var appId = setInterval(function() {
+//		that.timer.update();
+//		
+//		that.coreUpdate(that.timer.getElapsed());
+//		
+//		if(!that.running) {
+//			clearInterval(appId);
+//		}
+//	}, 17);
 };
 	
 JSE.Core.Application.prototype.coreInit = function() {

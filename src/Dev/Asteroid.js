@@ -29,7 +29,7 @@ JSE.Dev.Asteroid.prototype = {
 			this.animPhase -= this.sprite.getFrames();
 		}
 
-		if(this.y > 590.0) {
+		if(this.y > window.innerHeight) {
 			this.alive = false;
 		}
 	},

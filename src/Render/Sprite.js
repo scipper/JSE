@@ -22,6 +22,8 @@ JSE.Render.Sprite.prototype = {
 	load: function(filename, frames, frameW, frameH, w, h) {
 		this.image = new Image(); 
 		this.image.src = filename;
+		this.image.w = w;
+		this.image.h = h;
 		
 		this.rect.x = 0;
 		this.rect.y = 0;
@@ -77,6 +79,9 @@ JSE.Render.Sprite.prototype = {
 			img.style.position = "absolute";
 			img.style.top = 0 + "px";
 			img.style.left = 0 + "px";
+			img.style.display = "block";
+			img.style.width = this.image.w + "px";
+			img.style.height = this.image.h + "px";
 			
 			container.appendChild(img);
 		}

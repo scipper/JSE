@@ -15,7 +15,9 @@ JSE.Dev.MyApp.prototype.constructor = JSE.Dev.MyApp;
 
 JSE.Dev.MyApp.prototype.init = function() {
 	this.background = new JSE.Render.Sprite();
-	this.background.load("images/background.bmp", 0, 800, 600);
+	this.background.load("images/background.bmp", 0, window.innerWidth, window.innerHeight, window.innerWidth, window.innerHeight);
+	
+	document.body.style.overflow = "hidden";
 
 	console.log("MyApp initialised.");
 };
@@ -41,7 +43,7 @@ JSE.Dev.MyApp.prototype.spawnAsteroids = function(tpf) {
 	this.asteroidTimer += tpf;
 
 	if(this.asteroidTimer > 0.5) {
-		var x = Math.floor(Math.random() * (736 - 1)) + 1;
+		var x = Math.floor(Math.random() * (window.innerWidth - 32)) + 1;
 		var sprite = new JSE.Render.Sprite();
 		sprite.load("images/asteroid.png", 64, 64, 64, 512, 512);
 		var asteroid = new JSE.Dev.Asteroid(sprite, x, -60);
