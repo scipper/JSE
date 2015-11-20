@@ -11,9 +11,6 @@ JSE.Render.Sprite = function() {
 	this.rect = new JSE.Render.Rect();
 	this.frameRect = new JSE.Render.Rect();
 	this.div = Math.floor(Math.random() * (1000000 - 1)) + 1;
-	var container = document.createElement("div");
-	container.setAttribute("id", "sprite-" + this.div);
-	document.body.appendChild(container);
 };
 
 JSE.Render.Sprite.prototype = {
@@ -36,6 +33,23 @@ JSE.Render.Sprite.prototype = {
 		this.frameRect.w = frameW;
 		this.frameRect.h = frameH;
 		this.numFramesX = w / frameW;
+
+		var container = document.createElement("div");
+		container.setAttribute("id", "sprite-" + this.div);
+		container.style.width = this.w + "px";
+		container.style.height = this.h + "px";
+		container.style.display = "inline-block";
+		container.style.overflow = "hidden";
+		container.style.position = "absolute";
+		container.style.top = 0 + "px";
+		container.style.left = 0 + "px";
+
+		container.style.background = "url('" + this.image.src + "')";
+		container.style.backgroundPosition = (0 + "px ") + (0 + "px");
+		container.style.backgroundSize = (this.image.w + "px ") + (this.image.h + "px");
+		container.style.backgroundRepeat = "no-repeat";
+		
+		document.body.appendChild(container);
 	},
 	
 	setPos: function(x, y) {
@@ -50,11 +64,11 @@ JSE.Render.Sprite.prototype = {
 		this.frameRect.x = column * this.w;
 		this.frameRect.y = row * this.h;
 		
-		this.getImage().style.top = -this.frameRect.y + "px";
-		this.getImage().style.left = -this.frameRect.x + "px";
-
-		this.getContainer().style.top = this.rect.y + "px";
-		this.getContainer().style.left = this.rect.x + "px";
+		var container = this.getContainer();
+		
+		container.style.backgroundPosition = (-this.frameRect.x + "px ") + (-this.frameRect.y + "px");
+		container.style.top = this.rect.y + "px";
+		container.style.left = this.rect.x + "px";
 	},
 	
 	getFrames: function() {
@@ -65,28 +79,6 @@ JSE.Render.Sprite.prototype = {
 		return document.getElementById("sprite-" + this.div);
 	},
 	
-	getImage: function() {
-		var container = this.getContainer();
-		if(!container.firstChild) {
-			container.style.width = this.w + "px";
-			container.style.height = this.h + "px";
-			container.style.display = "inline-block";
-			container.style.overflow = "hidden";
-			container.style.position = "absolute";
-
-			var img = document.createElement("img");
-			img.setAttribute("src", this.image.src);
-			img.style.position = "absolute";
-			img.style.top = 0 + "px";
-			img.style.left = 0 + "px";
-			img.style.display = "block";
-			img.style.width = this.image.w + "px";
-			img.style.height = this.image.h + "px";
-			
-			container.appendChild(img);
-		}
-		return container.firstChild;
-	},
 };
 
 

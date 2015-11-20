@@ -50,6 +50,10 @@ JSE.Core.Application.prototype.coreInit = function() {
 	
 JSE.Core.Application.prototype.coreUpdate = function(tpf) {
 };
+
+JSE.Core.Application.prototype.pause = function() {
+	this.paused = !this.paused;
+};
 	
 JSE.Core.Application.prototype.stop = function() {
 	this.running = false;

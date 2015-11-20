@@ -27,3 +27,13 @@ JSE.createNS = function(namespace) {
     // we return the outermost namespace
     return parent;
 };
+
+JSE.getChar = function(event) {
+	if(event.which == null) {
+		return String.fromCharCode(event.keyCode);
+	} else if(event.which != 0 && event.charCode != 0) {
+		return String.fromCharCode(event.which);
+	} else {
+		return null;
+	}
+};

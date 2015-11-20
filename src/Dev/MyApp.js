@@ -8,20 +8,34 @@ JSE.Dev.MyApp = function() {
 	this.background = null;
 	this.asteroidTimer = null;
 	this.asteroidList = [];
+	
+	this.opacity = 0;
+	
+	this.pauseScreen = null;
 };
 
 JSE.Dev.MyApp.prototype = Object.create(JSE.Core.BaseApplication.prototype);
 JSE.Dev.MyApp.prototype.constructor = JSE.Dev.MyApp;
 
 JSE.Dev.MyApp.prototype.init = function() {
+	var that = this;
+	
 	this.background = new JSE.Render.Sprite();
 	this.background.load("images/background.bmp", 0, window.innerWidth, window.innerHeight, window.innerWidth, window.innerHeight);
 	
 	document.body.style.overflow = "hidden";
-
+	
+	document.onkeypress = function(event) {
+		var char = JSE.getChar(event || window.event);
+		
+		if(char == "p") {
+			that.pause();
+		}
+	};
+	
 	console.log("MyApp initialised.");
 };
-	
+
 JSE.Dev.MyApp.prototype.update = function(tpf) {
 	this.spawnAsteroids(tpf);
 	this.checkCollision();
@@ -32,6 +46,20 @@ JSE.Dev.MyApp.prototype.update = function(tpf) {
 };
 	
 JSE.Dev.MyApp.prototype.render = function(tpf) {
+	if(this.paused && this.opacity < 1.0) {
+		if(this.pauseScreen == null) {
+			this.pauseScreen = new JSE.Render.Sprite();
+			this.pauseScreen.load("images/scratched.jpg", 0, window.innerWidth, window.innerHeight, window.innerWidth, window.innerHeight);
+		}
+		this.opacity += (8 * tpf)
+		this.pauseScreen.getContainer().style.opacity = this.opacity;
+	} else if(!this.paused && this.opacity > 0.0) {
+		this.opacity -= (8 * tpf)
+		this.pauseScreen.getContainer().style.opacity = this.opacity;
+		if(this.opacity <= 0) {
+			this.pauseScreen = null;
+		}
+	}
 	this.background.render(tpf);
 	
 	for(var i = 0; i < this.asteroidList.length; i++) {
